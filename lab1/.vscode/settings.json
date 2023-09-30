@@ -1,0 +1,22 @@
+{
+    "files.associations": {
+        "utils.h": "c",
+        "menu.h": "c",
+        "string.h": "c",
+        "stdio.h": "c",
+        "time.h": "c",
+        "random": "c",
+        "*.tcc": "c",
+        "algorithm": "c",
+        "memory": "c",
+        "iosfwd": "c",
+        "numeric": "c",
+        "ostream": "c",
+        "streambuf": "c",
+        "message.h": "c",
+        "global.h": "c",
+        "auth.h": "c",
+        "stdlib.h": "c",
+        "*.txt": "c"
+    }
+}
