@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "netdb.h": "c",
+        "unistd.h": "c",
+        "system_error": "c",
+        "convert.h": "c",
+        "logger.h": "c",
+        "socket.h": "c",
+        "init.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}
