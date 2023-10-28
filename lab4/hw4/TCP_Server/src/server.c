@@ -42,6 +42,7 @@ int main(int argc, char *argv[]) {
         client_socket = accept(server_socket, (struct sockaddr *)&client_addr, &client_len);
         if (client_socket < 0) {
             perror("Error accepting connection");
+            continue;
         }
 
         // Get client information
@@ -60,7 +61,7 @@ int main(int argc, char *argv[]) {
         logger(client_ip, client_port, " ", "+OK Welcome to file server");
 
         // Start receive file
-        file_receiving_protocol(client_socket);
+        file_receiving_protocol(client_socket, client_ip, client_port);
     }
 
     // Close server

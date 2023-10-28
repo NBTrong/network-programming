@@ -8,7 +8,6 @@ int send_with_error_handling(const int server_socket, char* buffer, const char* 
         return 0;
     }
     printf("Send: %s\n", buffer);
-    memset(buffer, 0, strlen(buffer));
     return 1;
 };
 

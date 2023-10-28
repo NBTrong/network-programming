@@ -37,9 +37,10 @@ void file_sending_protocol(int client_socket) {
         if (recv(client_socket, buffer, sizeof(buffer), 0) < 0) {
             perror("Error receiving file request message from the server");
         }
-        printf("Server: %s\n", buffer);
+        handle_message(buffer);
 
         // Send file to server
+        printf("Sending ...\n");
         while (!feof(file)) {
             memset(buffer, 0, sizeof(buffer));
             int bytes_read = fread(buffer, 1, sizeof(buffer), file);
@@ -53,7 +54,7 @@ void file_sending_protocol(int client_socket) {
         if (recv(client_socket, buffer, sizeof(buffer), 0) < 0) {
             perror("Error receiving the result from the server");
         }
-        printf("Server: %s\n", buffer);
+        handle_message(buffer);
         fclose(file);
     }
 }

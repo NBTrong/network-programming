@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <libgen.h>
+#include "../../config/message.h"
 
 void file_sending_protocol(int client_socket);
 

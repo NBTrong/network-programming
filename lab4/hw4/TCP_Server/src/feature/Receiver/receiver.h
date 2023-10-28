@@ -12,6 +12,6 @@
 #include "../../global.h"
 #include "../../config/logger.h"
 
-int file_receiving_protocol(int sender_socket);
+int file_receiving_protocol(int sender_socket, const char* client_ip, const int client_port);
 
 #endif

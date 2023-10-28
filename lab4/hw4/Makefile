@@ -7,6 +7,7 @@ SERVER_SRCDIR = TCP_Server/src
 SERVER_BUILDDIR = TCP_Server/build
 SERVER_BINDIR = TCP_Server/bin
 SERVER_LOGDIR = TCP_Server/logs
+SERVER_DATA = TCP_Server/data
 
 # List of source files in src directory and its subdirectories
 SERVER_SRC = $(shell find $(SERVER_SRCDIR) -name "*.c")
@@ -53,7 +54,7 @@ $(CLI_BUILDDIR)/%.o: $(CLI_SRCDIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(SERVER_BUILDDIR) $(SERVER_BINDIR) $(CLI_BUILDDIR) $(CLI_BINDIR) ${SERVER_TARGET} ${CLI_TARGET}
+	rm -rf $(SERVER_BUILDDIR) $(SERVER_BINDIR) $(CLI_BUILDDIR) $(CLI_BINDIR) ${SERVER_TARGET} ${CLI_TARGET} ${SERVER_DATA}/*
 
 run_server: 
 	./$(SERVER_TARGET)

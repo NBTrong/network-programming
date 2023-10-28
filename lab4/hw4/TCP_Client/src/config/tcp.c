@@ -25,7 +25,7 @@ int connect_server(const char* server_ip_address, int server_port_number) {
     if (recv(client_socket, buffer, sizeof(buffer), 0) < 0) {
         perror("Error receiving welcome message");
     }
-    printf("Server: %s\n", buffer);
+    handle_message(buffer);
 
     return client_socket;
 }
