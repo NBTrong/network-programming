@@ -22,7 +22,7 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(BUILDDIR)
+	rm -rf $(BUILDDIR) ${TARGET}
 
 run: 
 	./$(TARGET)
