@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
     socklen_t client_len;
     client_len = sizeof(client_addr);
     while(1) {
-        char buffer[1024];
+        char buffer[STRING_LENGTH];
 
         // Accept connect with client
         printf("\nWaiting client connect ....\n");

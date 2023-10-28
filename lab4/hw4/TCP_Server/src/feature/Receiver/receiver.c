@@ -2,8 +2,8 @@
 
 int file_receiving_protocol(int sender_socket, const char* client_ip, const int client_port) {
     while(1) {
-        char request[1024];
-        char response[1024];
+        char request[STRING_LENGTH];
+        char response[STRING_LENGTH];
 
         // Receive the filename and size from the client
         if (recv_with_error_handling(sender_socket, request, sizeof(request),
@@ -11,13 +11,13 @@ int file_receiving_protocol(int sender_socket, const char* client_ip, const int 
             return 0;
 
         // Get file name, file size
-        char file_name[1024];
-        int file_size;
-        sscanf(request, "UPLD %s %d", file_name, &file_size);
-        printf("File name: %s, file size: %d\n", file_name, file_size);
+        char file_name[STRING_LENGTH];
+        unsigned long long int file_size;
+        sscanf(request, "UPLD %s %llu", file_name, &file_size);
+        printf("File name: %s, file size: %llu\n", file_name, file_size);
         if (file_size > FILE_SIZE_LIMIT) {
-            char message[1024] = "";
-            sprintf(message, "-ERR The file is too large, please make sure the file is smaller than %d byte", FILE_SIZE_LIMIT);
+            char message[STRING_LENGTH] = "";
+            sprintf(message, "-ERR The file is too large, please make sure the file is smaller than %ld byte", FILE_SIZE_LIMIT);
             send_with_error_handling(
                 sender_socket,
                 response,
@@ -45,9 +45,9 @@ int file_receiving_protocol(int sender_socket, const char* client_ip, const int 
             return 0;
         }
 
-        int received = 0;
+        unsigned long long int received = 0;
         printf("Receiving ...\n");
-        char buffer[1024];
+        char buffer[STRING_LENGTH];
         while (received < file_size) {
             int bytes_received = recv_with_error_handling(
                 sender_socket, 

@@ -20,14 +20,14 @@ void file_sending_protocol(int client_socket) {
 
         // Get file size
         fseek(file, 0, SEEK_END);
-        int file_size = ftell(file);
+        unsigned long long int file_size = ftell(file);
         fseek(file, 0, SEEK_SET);
 
         // Send file information
         char buffer[1024];
         memset(buffer, 0, sizeof(buffer));
         char *file_name = basename(file_path);
-        sprintf(buffer, "UPLD %s %d", file_name, file_size);
+        sprintf(buffer, "UPLD %s %llu", file_name, file_size);
         if (send(client_socket, buffer, sizeof(buffer), 0) < 0) {
             perror("Error sending file request message");
         }

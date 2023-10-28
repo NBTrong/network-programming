@@ -30,3 +30,10 @@
 [28/10/2023 15:12:22] $127.0.0.1:59820 $  $+OK Welcome to file server
 [28/10/2023 15:12:55] $127.0.0.1:59820 $UPLD file.txt 6 $+OK Successful upload
 [28/10/2023 15:13:15] $127.0.0.1:59834 $  $+OK Welcome to file server
+[28/10/2023 15:45:41] $127.0.0.1:47942 $  $+OK Welcome to file server
+[28/10/2023 15:45:44] $127.0.0.1:47942 $UPLD file.txt 6 $+OK Successful upload
+[28/10/2023 16:00:06] $127.0.0.1:35000 $  $+OK Welcome to file server
+[28/10/2023 16:43:19] $127.0.0.1:35000 $UPLD file.txt 6 $+OK Successful upload
+[28/10/2023 16:43:25] $127.0.0.1:50336 $  $+OK Welcome to file server
+[28/10/2023 16:43:49] $127.0.0.1:50336 $UPLD android.tar.gz 1168134970 $+OK Successful upload
+[28/10/2023 16:43:54] $127.0.0.1:50336 $UPLD Makefile 1753 $+OK Successful upload
