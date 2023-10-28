@@ -16,6 +16,6 @@
  * @param result A string describing the outcome or result of the event (e.g., "success" or "error").
  * @param message An optional string providing additional information or context for the event (can be NULL).
  */
-void logger(const char *request, const char *response);
+void logger(const char* ip_address, const int port, const char *request, const char *response);
 
 #endif

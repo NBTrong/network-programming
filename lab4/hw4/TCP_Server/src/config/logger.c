@@ -1,6 +1,6 @@
 #include "logger.h"
 
-void logger(const char *request, const char *response) {
+void logger(const char* ip_address, const int port, const char *request, const char *response) {
     time_t now;
     struct tm timestamp;
 
@@ -17,7 +17,7 @@ void logger(const char *request, const char *response) {
         strftime(timestampStr, sizeof(timestampStr), "[%d/%m/%Y %H:%M:%S]", &timestamp);
 
         // Write file
-        fprintf(logFile, "%s $ %s $ %s\n", timestampStr, request, response);
+        fprintf(logFile, "%s $ %s:%d $ %s $ %s\n", timestampStr, ip_address, port, request, response);
         fclose(logFile);
         
         // Output stdin
