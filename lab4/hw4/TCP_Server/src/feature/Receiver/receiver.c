@@ -15,8 +15,19 @@ int file_receiving_protocol(int sender_socket, const char* client_ip, const int 
         int file_size;
         sscanf(request, "UPLD %s %d", file_name, &file_size);
         printf("File name: %s, file size: %d\n", file_name, file_size);
+        if (file_size > FILE_SIZE_LIMIT) {
+            char message[1024] = "";
+            sprintf(message, "-ERR The file is too large, please make sure the file is smaller than %d byte", FILE_SIZE_LIMIT);
+            send_with_error_handling(
+                sender_socket,
+                response,
+                message,
+                "Error sending file request message"
+            );
+            continue;
+        }
 
-        // Ask client to send files 
+        // Ask client to send files
         send_with_error_handling(
             sender_socket,
             response,

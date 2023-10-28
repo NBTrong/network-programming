@@ -37,7 +37,9 @@ void file_sending_protocol(int client_socket) {
         if (recv(client_socket, buffer, sizeof(buffer), 0) < 0) {
             perror("Error receiving file request message from the server");
         }
-        handle_message(buffer);
+        char* status = handle_message(buffer);
+        if(strcmp(status, "-ERR") == 0)
+            continue;
 
         // Send file to server
         printf("Sending ...\n");

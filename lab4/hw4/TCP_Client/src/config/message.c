@@ -1,6 +1,6 @@
 #include "message.h"
 
-void handle_message(const char* buffer) {
+char* handle_message(const char* buffer) {
     char status[10];
     char message[1024];
     if (sscanf(buffer, "%9s %[^\n]", status, message) == 2) {
@@ -12,4 +12,5 @@ void handle_message(const char* buffer) {
     } else {
         printf("Server: Invalid format.\n");
     }
+    return strdup(status);
 }

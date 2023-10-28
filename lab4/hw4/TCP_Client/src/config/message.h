@@ -5,6 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-void handle_message(const char* buffer);
+char* handle_message(const char* buffer);
 
 #endif
