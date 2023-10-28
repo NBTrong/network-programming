@@ -5,16 +5,11 @@
 #include <time.h>
 
 /**
- * @brief Log an event or action with details to a log file and optionally display a message.
- *
- * This function is used to log an event or action, including details such as the function name,
- * the associated user, the result or status, and an optional message, to a log file. It also
- * optionally displays the message on the standard output.
- *
- * @param function A string specifying the name of the function or action being logged.
- * @param user A string indicating the user associated with the event (e.g., username or ID).
- * @param result A string describing the outcome or result of the event (e.g., "success" or "error").
- * @param message An optional string providing additional information or context for the event (can be NULL).
+ * Log a network request and response along with client's IP address and port.
+ * @param ip_address The IP address of the client making the request.
+ * @param port The port number used for the client's connection.
+ * @param request The request message or information.
+ * @param response The response message or information.
  */
 void logger(const char* ip_address, const int port, const char *request, const char *response);
 
