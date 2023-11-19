@@ -39,22 +39,13 @@ int main(int argc, char *argv[])
     client_len = sizeof(client_addr);
     while (1)
     {
-        char buffer[STRING_LENGTH];
-
         // Accept connect with client
-        printf("\nWaiting client connect ....\n");
         client_socket = accept(server_socket, (struct sockaddr *)&client_addr, &client_len);
         if (client_socket < 0)
         {
             perror("Error accepting connection");
             continue;
         }
-
-        // Get client information
-        char client_ip[STRING_LENGTH];
-        int client_port;
-        inet_ntop(AF_INET, &(client_addr.sin_addr), client_ip, STRING_LENGTH);
-        client_port = ntohs(client_addr.sin_port);
 
         // Create thread
         pthread_create(&tid, NULL, &handleClient, &client_socket);
@@ -71,6 +62,7 @@ void *handleClient(void *arg)
     char sendMessage[STRING_LENGTH];
     char recvMessage[STRING_LENGTH];
 
+    printf("Client %d request connect\n", client_socket);
     send_with_error_handling(client_socket, sendMessage, int_to_string(CONNECTED_SUCCESSFULLY), "Send message failed");
     while (recv_with_error_handling(
         client_socket,
@@ -82,11 +74,13 @@ void *handleClient(void *arg)
     }
 
     delete_session_by_socket_id(client_socket);
+
+    return 0;
 }
 
 void router(int client_socket, const char *message)
 {
-    printf("Message: %s\n", message);
+    printf("Recv from client %d: %s\n", client_socket, message);
     char keyword[STRING_LENGTH];
     char parameter[STRING_LENGTH];
     char buffer[STRING_LENGTH];

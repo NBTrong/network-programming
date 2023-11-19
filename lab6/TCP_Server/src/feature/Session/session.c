@@ -104,7 +104,6 @@ void print_all_sessions()
 
 void delete_session_by_socket_id(int socket_id)
 {
-  printf("Client socket %d\n", socket_id);
   // Lock the mutex before accessing shared data
   pthread_mutex_lock(&mutex);
 

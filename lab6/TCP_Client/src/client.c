@@ -6,12 +6,16 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <libgen.h>
-#include "./config/tcp.h"
-#include "./feature/Sender/sender.h"
+#include "./utils/utils.h"
+#include "./config/menu.h"
+#include "./feature/Auth/auth.h"
+#include "./feature/Article/article.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     // Handle argv
-    if (argc < 3) {
+    if (argc < 3)
+    {
         fprintf(stderr, "Usage: %s [IP_Address] [Port_Number]\n", argv[0]);
         exit(1);
     }
@@ -21,8 +25,39 @@ int main(int argc, char *argv[]) {
     // Connect server
     int client_socket = connect_server(ip_address, port_number);
 
-    // Start send file
-    file_sending_protocol(client_socket);
+    int choice = 0;
+
+    while (choice != 4)
+    {
+        menu();
+
+        printf("Enter your choice(1-4): ");
+        input(&choice, "int");
+
+        switch (choice)
+        {
+        case 1:
+            login(client_socket);
+            break;
+
+        case 2:
+            postArticle(client_socket);
+            break;
+        case 3:
+            logout(client_socket);
+            break;
+
+        case 4:
+            exit(1);
+            break;
+
+        default:
+            printf("Invalid choice. Please enter a valid option (1-4).\n");
+            break;
+        }
+        choice = 0;
+    }
+
     close(client_socket);
 
     return 0;

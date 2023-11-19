@@ -52,20 +52,27 @@ void login(int client_socket, const char *username)
 
     // Check the client's login status
     if (checkLoginStatus(client_socket) == LOGGED_IN)
-        return send_with_error_handling(
+    {
+        send_with_error_handling(
             client_socket,
             buffer,
             int_to_string(ACCOUNT_ALREADY_LOGGED_IN),
             "Send message login status error");
+        return;
+    }
 
     // Check account's login status on other devices
     Session *session = find_session_by_username(username);
     if (session != NULL && session->socket_id != client_socket)
-        return send_with_error_handling(
+    {
+
+        send_with_error_handling(
             client_socket,
             buffer,
             int_to_string(ACCOUNT_ALREADY_LOGGED_IN_ANOTHER_DEVICE),
             "Send message login status error");
+        return;
+    }
 
     // Verify account
     int result = verifyAccount(username);
@@ -95,7 +102,7 @@ void login(int client_socket, const char *username)
             buffer,
             int_to_string(ACCOUNT_EXISTS_AND_ACTIVE),
             "Send message login status error");
-        print_all_sessions();
+        // print_all_sessions();
         break;
     }
 }

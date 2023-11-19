@@ -1,7 +1,6 @@
 #include "menu.h"
 
-void menu()
-{
+void menu() {
     printf("\n ------------------------------------------------------------------\n");
     printf("Menu:\n");
     printf("1. Log in\n");
