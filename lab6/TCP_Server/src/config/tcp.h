@@ -18,7 +18,7 @@
  * @param error_message The error message to display in case of sending failure.
  * @return 0 on success, or -1 in case of an error.
  */
-int send_with_error_handling(const int server_socket, char* buffer, const char* message, const char* error_message);
+int send_with_error_handling(const int server_socket, char *buffer, const char *message, const char *error_message);
 
 /**
  * Receive a message on the specified client socket with error handling.
@@ -28,7 +28,7 @@ int send_with_error_handling(const int server_socket, char* buffer, const char* 
  * @param error_message The error message to display in case of receiving failure.
  * @return The number of bytes received on success, or -1 in case of an error.
  */
-int recv_with_error_handling(const int client_socket, char* buffer, size_t size, const char* error_message);
+int recv_with_error_handling(const int client_socket, char *buffer, size_t size, const char *error_message);
 
 /**
  * Initialize a server on the specified port number.
@@ -36,5 +36,7 @@ int recv_with_error_handling(const int client_socket, char* buffer, size_t size,
  * @return The socket descriptor for the server, or -1 in case of an error.
  */
 int init_server(int port_number);
+
+char *int_to_string(int num);
 
 #endif

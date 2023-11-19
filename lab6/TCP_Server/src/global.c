@@ -1,3 +1,4 @@
 #include "global.h"
 
-char full_directory[STRING_LENGTH] = "\0";
+char currentUser[STRING_LENGTH] = "\0";
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
