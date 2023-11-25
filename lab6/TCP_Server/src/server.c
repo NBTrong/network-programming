@@ -18,6 +18,7 @@ void *handleClient(void *arg);
 
 int main(int argc, char *argv[])
 {
+    int *client_socket;
     // Handle argv
     if (argc < 2)
     {
@@ -33,22 +34,22 @@ int main(int argc, char *argv[])
     int server_socket = init_server(port_number);
 
     // Communicate with clients
-    int client_socket;
     struct sockaddr_in client_addr;
     socklen_t client_len;
     client_len = sizeof(client_addr);
     while (1)
     {
+        client_socket = malloc(sizeof(int));
         // Accept connect with client
-        client_socket = accept(server_socket, (struct sockaddr *)&client_addr, &client_len);
-        if (client_socket < 0)
+        *client_socket = accept(server_socket, (struct sockaddr *)&client_addr, &client_len);
+        if (*client_socket < 0)
         {
             perror("Error accepting connection");
             continue;
         }
 
         // Create thread
-        pthread_create(&tid, NULL, &handleClient, &client_socket);
+        pthread_create(&tid, NULL, &handleClient, client_socket);
     }
 
     // Close server
@@ -61,21 +62,24 @@ void *handleClient(void *arg)
     int client_socket = *(int *)arg;
     char sendMessage[STRING_LENGTH];
     char recvMessage[STRING_LENGTH];
+    free(arg);
+    pthread_detach(pthread_self());
 
     printf("Client %d request connect\n", client_socket);
-    send_with_error_handling(client_socket, sendMessage, int_to_string(CONNECTED_SUCCESSFULLY), "Send message failed");
-    while (recv_with_error_handling(
-        client_socket,
-        recvMessage,
-        sizeof(recvMessage),
-        "Error receiving data from the client"))
+    send_with_error_handling(client_socket, sendMessage, int_to_string(CONNECTED_SUCCESSFULLY), "Send hahaha message failed");
+    int ret = 0;
+    while ((ret = recv_with_error_handling(
+                client_socket,
+                recvMessage,
+                sizeof(recvMessage),
+                "Error receiving data from the client")))
     {
+        printf("Ret: %d\n", ret);
         router(client_socket, recvMessage);
     }
 
     delete_session_by_socket_id(client_socket);
-
-    return 0;
+    close(client_socket);
 }
 
 void router(int client_socket, const char *message)
@@ -100,6 +104,6 @@ void router(int client_socket, const char *message)
     }
     else
     {
-        send_with_error_handling(client_socket, buffer, "300", "Send message failed");
+        send_with_error_handling(client_socket, buffer, "300", "HOHOHH Send message failed");
     }
 };
