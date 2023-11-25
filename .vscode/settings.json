@@ -27,7 +27,8 @@
         "article.h": "c",
         "stdio.h": "c",
         "menu.h": "c",
-        "utils.h": "c"
+        "utils.h": "c",
+        "select.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

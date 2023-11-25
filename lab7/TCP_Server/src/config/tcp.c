@@ -41,7 +41,7 @@ int recv_with_error_handling(const int client_socket, char *buffer, size_t size,
     else if (result == 0)
     {
         printf("Client %d disconnect\n", client_socket);
-        close(client_socket);
+        // close(client_socket);
         return result;
     }
 
@@ -53,7 +53,7 @@ int recv_with_error_handling(const int client_socket, char *buffer, size_t size,
     if (*endptr != '\0' || content_length <= 0 || content_length > (long int)size)
     {
         fprintf(stderr, "Invalid message length. Disconnecting client %d.\n", client_socket);
-        close(client_socket);
+        // close(client_socket);
         return 0;
     }
 
@@ -66,7 +66,7 @@ int recv_with_error_handling(const int client_socket, char *buffer, size_t size,
     else if (result == 0)
     {
         printf("Client %d disconnect\n", client_socket);
-        close(client_socket);
+        // close(client_socket);
     }
 
     // Null-terminate the received content
