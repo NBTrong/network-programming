@@ -62,17 +62,17 @@ void login(int client_socket, const char *username)
     }
 
     // Check account's login status on other devices
-    Session *session = find_session_by_username(username);
-    if (session != NULL && session->socket_id != client_socket)
-    {
+    // Session *session = find_session_by_username(username);
+    // if (session != NULL && session->socket_id != client_socket)
+    // {
 
-        send_with_error_handling(
-            client_socket,
-            buffer,
-            int_to_string(ACCOUNT_ALREADY_LOGGED_IN_ANOTHER_DEVICE),
-            "Send message login status error");
-        return;
-    }
+    //     send_with_error_handling(
+    //         client_socket,
+    //         buffer,
+    //         int_to_string(ACCOUNT_ALREADY_LOGGED_IN_ANOTHER_DEVICE),
+    //         "Send message login status error");
+    //     return;
+    // }
 
     // Verify account
     int result = verifyAccount(username);

@@ -22,7 +22,7 @@ int handle_client(void *arg);
 
 int main(int argc, char *argv[])
 {
-    // Handle argv
+    // ----------------------------------- Handle argv -----------------------------------
     if (argc < 2)
     {
         fprintf(stderr, "Usage: %s [Port_Number]\n", argv[0]);
@@ -30,19 +30,18 @@ int main(int argc, char *argv[])
     }
     int port_number = atoi(argv[1]);
 
+    // ----------------------------------- Initialize -----------------------------------
     int *client_socket;
     int i, maxi, max_fd, server_socket, conn_fd, sock_fd;
     int ready_count, client[FD_SETSIZE];
     fd_set readfds, all_set;
     socklen_t client_len;
-    struct sockaddr_in client_addr, server_addr;
+    struct sockaddr_in client_addr;
 
     server_socket = init_server(port_number);
-
-    // Initialize
     max_fd = server_socket;
 
-    // index into client[] array
+    // ----------------------------------- Setup multiplexing --------------------------
     maxi = -1;
     for (i = 0; i < FD_SETSIZE; i++)
         client[i] = -1; /* -1 indicates available entry */
@@ -88,7 +87,7 @@ int main(int argc, char *argv[])
             }
         }
 
-        // Handle request from client
+        // --------------------------------- Handle request from client ------------------------------
         for (i = 0; i <= maxi; i++)
         {
             if ((sock_fd = client[i]) < 0)
