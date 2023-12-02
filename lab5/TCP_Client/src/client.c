@@ -5,7 +5,6 @@
 #include <netinet/in.h>
 #include <unistd.h>
 #include <arpa/inet.h>
-#include <libgen.h>
 #include "./utils/utils.h"
 #include "./config/menu.h"
 #include "./feature/Auth/auth.h"

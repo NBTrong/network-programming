@@ -2,13 +2,9 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
-#include <pthread.h>
-
 #define STRING_LENGTH 100
 
 extern char currentUser[STRING_LENGTH];
-
-extern pthread_mutex_t mutex;
 
 enum LoginStatus
 {
@@ -17,7 +13,8 @@ enum LoginStatus
   LOGGED_IN = 3,
   NOT_LOGGED_IN = 4,
   ACCOUNT_VALID = 5,
-  LOGGED_IN_ON_ANOTHER_DEVICE = 6
+  LOGGED_IN_ON_ANOTHER_DEVICE = 6,
+  UNDEFINED = 7,
 };
 
 enum Code
@@ -30,7 +27,7 @@ enum Code
   ACCOUNT_LOCKED = 211,
   ACCOUNT_NOT_FOUND = 212,
   ACCOUNT_ALREADY_LOGGED_IN = 214,
-  ACCOUNT_ALREADY_LOGGED_IN_ANOTHER_DEVICE = 213,
+  DATABASE_ERROR = 215,
 
   // Post
   POST_SUCCESSFULLY = 120,

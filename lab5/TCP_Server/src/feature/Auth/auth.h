@@ -5,9 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <pthread.h>
 #include "../../global.h"
-#include "../Session/session.h"
 #include "../../utils/utils.h"
 #include "../../config/tcp.h"
 
@@ -18,7 +16,7 @@
  *
  * @return An integer constant representing the login status (LOGGED_IN or NOT_LOGGED_IN).
  */
-int checkLoginStatus(int client_socket);
+int checkLoginStatus();
 
 /**
  * @brief Verify the status of an account in the account.txt file.
@@ -27,7 +25,7 @@ int checkLoginStatus(int client_socket);
  * is banned or not found, appropriate status codes are returned.
  *
  * @param account A string representing the account to be verified.
- * @return An integer constant representing the account status (ACCOUNT_BANNED, ACCOUNT_VALID, or ACCOUNT_NOT_EXIST).
+ * @return An integer constant representing the account status (ACCOUNT_BANNED, ACCOUNT_VALID, UNDEFINED, or ACCOUNT_NOT_EXIST).
  */
 int verifyAccount(const char *account);
 

@@ -22,5 +22,5 @@ void postArticle(int client_socket, char *article)
         int_to_string(POST_SUCCESSFULLY),
         "Send message login status error");
 
-    printf("Client %d post article: %s\n", client_socket, article);
+    printf("Client post article: %s\n", article);
 }

@@ -38,6 +38,14 @@ int send_with_error_handling(const int server_socket, char *buffer, const char *
  */
 int recv_with_error_handling(const int client_socket, char *buffer, size_t size, const char *error_message);
 
+/**
+ * @brief Print a human-readable message based on a status code.
+ *
+ * This function takes a status code in the form of a string, converts it to an
+ * integer, and prints a corresponding human-readable message to the console.
+ *
+ * @param status The status code as a string.
+ */
 void printStatusMessage(const char *status);
 
 #endif

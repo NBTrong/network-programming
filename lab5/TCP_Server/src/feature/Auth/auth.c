@@ -1,57 +1,64 @@
 #include "auth.h"
 
-int checkLoginStatus(int client_socket)
+int checkLoginStatus()
 {
-    Session *session = find_session_by_socket_id(client_socket);
-    if (session == NULL)
-        return NOT_LOGGED_IN;
-
-    return LOGGED_IN;
+    if (strcmp(currentUser, "\0") != 0)
+    {
+        return LOGGED_IN;
+    }
+    return NOT_LOGGED_IN;
 };
 
 // --------------------------------------- Login function ----------------------------------------------
 
 int verifyAccount(const char *account)
 {
-    // Read file
-    FILE *file = fopen("./TCP_Server/database/account.txt", "r"); // Open the file in read mode ("r")
+    FILE *file = fopen("./TCP_Server/database/account.txt", "r");
 
     if (file == NULL)
     {
         printf("Unable to open the file.\n");
-        exit(1); // Exit the program with an error code
+        exit(1);
     }
 
-    char username[STRING_LENGTH]; // Variable to store the username
-    int status;                   // Variable to store the status
+    char username[STRING_LENGTH + 1]; // +1 for null terminator
+    int status;
 
-    // Read and display information from the file
-    while (fscanf(file, "%s %d", username, &status) == 2)
+    while (fscanf(file, "%100s %d", username, &status) == 2)
     {
-        // Banned account
-        if (strcmp(account, username) == 0 && status == BAN)
+        if (strcmp(account, username) == 0)
         {
-            return ACCOUNT_BANNED;
-        }
+            fclose(file);
 
-        // Valid account
-        if (strcmp(account, username) == 0 && status == ACTIVE)
-        {
-            return ACCOUNT_VALID;
+            if (status == BAN)
+            {
+                return ACCOUNT_BANNED;
+            }
+            else if (status == ACTIVE)
+            {
+                return ACCOUNT_VALID;
+            }
         }
     }
 
-    fclose(file); // Close the file after usage
+    // If in database have username >= 100 ==> Database error
+    if (strlen(username) >= STRING_LENGTH)
+    {
+        printf("Error: Username length exceeds maximum allowed length.\n");
+        fclose(file);
+        return UNDEFINED;
+    }
 
+    fclose(file);
     return ACCOUNT_NOT_EXIST;
-};
+}
 
 void login(int client_socket, const char *username)
 {
     char buffer[STRING_LENGTH];
 
     // Check the client's login status
-    if (checkLoginStatus(client_socket) == LOGGED_IN)
+    if (checkLoginStatus() == LOGGED_IN)
     {
         send_with_error_handling(
             client_socket,
@@ -82,14 +89,19 @@ void login(int client_socket, const char *username)
         break;
 
     case ACCOUNT_VALID:
-        // Account valid, create session and login
-        add_session(client_socket, "", 0, username, LOGGED_IN);
+        strcpy(currentUser, username);
         send_with_error_handling(
             client_socket,
             buffer,
             int_to_string(ACCOUNT_EXISTS_AND_ACTIVE),
             "Send message login status error");
-        // print_all_sessions();
+        break;
+    case UNDEFINED:
+        send_with_error_handling(
+            client_socket,
+            buffer,
+            int_to_string(DATABASE_ERROR),
+            "Send message login status error");
         break;
     }
 }
@@ -100,11 +112,11 @@ void logout(int client_socket)
 {
     char buffer[STRING_LENGTH];
 
-    int result = checkLoginStatus(client_socket);
+    int result = checkLoginStatus();
     switch (result)
     {
     case LOGGED_IN:
-        delete_session_by_socket_id(client_socket);
+        strcpy(currentUser, "\0");
         send_with_error_handling(
             client_socket,
             buffer,

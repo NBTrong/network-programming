@@ -37,6 +37,17 @@ int recv_with_error_handling(const int client_socket, char *buffer, size_t size,
  */
 int init_server(int port_number);
 
+/**
+ * @brief Convert an integer to a string.
+ *
+ * This function takes an integer as input and returns a pointer to a newly
+ * allocated string containing the value of the integer converted to a string.
+ * The string is dynamically allocated and needs to be freed after use.
+ *
+ * @param num The integer to be converted to a string.
+ * @return A pointer to a new character string containing the value of the integer.
+ *         If memory allocation fails, returns NULL.
+ */
 char *int_to_string(int num);
 
 #endif

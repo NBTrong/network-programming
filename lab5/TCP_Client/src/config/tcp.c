@@ -131,6 +131,9 @@ void printStatusMessage(const char *status)
     case 214:
         printf("Login failed: You are already logged in.\n");
         break;
+    case 215:
+        printf("Login failed: Database error.\n");
+        break;
     case 300:
         printf("Login failed: Undefined message request type.\n");
         break;

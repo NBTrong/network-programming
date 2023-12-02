@@ -22,7 +22,7 @@ int send_with_error_handling(const int server_socket, char *buffer, const char *
         return 0;
     }
 
-    printf("Send to client %d: %s\n", server_socket, message);
+    printf("Send to client: %s\n", message);
     return 1;
 }
 
@@ -40,7 +40,7 @@ int recv_with_error_handling(const int client_socket, char *buffer, size_t size,
     }
     else if (result == 0)
     {
-        printf("Client %d disconnect\n", client_socket);
+        printf("Client disconnect\n");
         close(client_socket);
         return result;
     }
@@ -52,7 +52,7 @@ int recv_with_error_handling(const int client_socket, char *buffer, size_t size,
     // Check for conversion errors
     if (*endptr != '\0' || content_length <= 0 || content_length > (long int)size)
     {
-        fprintf(stderr, "Invalid message length. Disconnecting client %d.\n", client_socket);
+        fprintf(stderr, "Invalid message length. Disconnecting client.\n");
         close(client_socket);
         return 0;
     }
@@ -65,7 +65,7 @@ int recv_with_error_handling(const int client_socket, char *buffer, size_t size,
     }
     else if (result == 0)
     {
-        printf("Client %d disconnect\n", client_socket);
+        printf("Client disconnect\n");
         close(client_socket);
     }
 
